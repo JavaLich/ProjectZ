@@ -32,5 +32,7 @@ class World {
    private:
     Tile tiles[WORLD_SIZE][WORLD_SIZE]{};
 
-    Texture2D tileset;
+    Texture tileset;
+    uint32_t set_width;
+    uint32_t set_height;
 };
