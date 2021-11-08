@@ -2,24 +2,47 @@
 
 #include <raylib.h>
 
-const uint16_t Game::WIDTH = 1280;
-const uint16_t Game::HEIGHT = 720;
 const std::string Game::TITLE = "Project Z";
+
+void updateFPSDisplay() {
+#ifndef NDEBUG
+    static double timer = 0.0f;
+    timer += GetFrameTime();
+    if (timer >= 1.0f) {
+        timer = 0;
+
+        std::string title = "Project Z | FPS: ";
+        title += GetFPS();
+
+        SetWindowTitle(title.c_str());
+
+        TraceLog(LOG_INFO, "Frametime: %f", GetFrameTime());
+    }
+#endif
+}
 
 Game::Game() {
     InitWindow(WIDTH, HEIGHT, TITLE.c_str());
-    SetTargetFPS(60);
+    SetTargetFPS(TARGET_FPS);
+    SetTraceLogLevel(LOG_ALL);
+
+    world = new World();
 }
 
-Game::~Game() { CloseWindow(); }
+Game::~Game() {
+    delete world;
 
-void Game::update(double delta) {}
+    CloseWindow();
+}
+
+void Game::update(double delta) { updateFPSDisplay(); }
 
 void Game::render() {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    DrawText("Congrats! You created your first window!", 190, 200, 20,
-             LIGHTGRAY);
+
+    world->render();
+
     EndDrawing();
 }
 
