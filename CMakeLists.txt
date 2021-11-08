@@ -11,6 +11,9 @@ set(OpenGL_GL_PREFERENCE GLVND)
 
 add_subdirectory(libs/raylib)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} 
+    src/main.cpp
+    src/Game.cpp
+)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
