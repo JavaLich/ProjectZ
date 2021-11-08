@@ -1,26 +1,16 @@
-#sets up the minimum version of cmake
-cmake_minimum_required(VERSION 3.9) # personally I'd set this version as low as required; you don't have to require the cutting edge version
+cmake_minimum_required(VERSION 3.20)
+project(ProjectZ C CXX)
 
-#how the project will be called
-project (projectz)
+set(CMAKE_CXX_STANDARD 20)
 
-#set the C++ standard to be used
-set (CMAKE_CXX_STANDARD 20)
+# Setting parameters for raylib
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
+set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
-#set source files
-set (SOURCE_FILES 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Game.cpp
-)
+set(OpenGL_GL_PREFERENCE GLVND)
 
-set (HEADER_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Game.h
-)
+add_subdirectory(libs/raylib)
 
-add_executable (projectz ${SOURCE_FILES})
-
-#look for SFML and add it
-find_package (SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
-if(SFML_FOUND)
-  target_link_libraries(projectz sfml-graphics sfml-audio)
-endif()
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")

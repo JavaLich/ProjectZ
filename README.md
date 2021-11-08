@@ -3,18 +3,15 @@
 WIP Platformer
 
 ## Dependencies
-- SFML
-    - Either install using a package manager
-        - e.g. (`sudo apt-get install libsfml-devel`)
-    -  Or build from source: https://www.sfml-dev.org/tutorials/2.5/compile-with-cmake.php
+- Raylib
+- CMake
 
 ## How to build
-If SFML is installed in a standard path, run:
-```
-cmake . bin
-```
+Clone raylib inside of a "libs" folder then just run CMake.
 
-Otherwise use `SFML_DIR` to set path to look for SFML:
+### Example
 ```
-cmake -DSFML_DIR=/path/to/SFML . bin
+mkdir bin
+cd bin
+cmake ..
 ```

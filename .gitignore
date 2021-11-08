@@ -1,6 +1,5 @@
-SFML/
-build/
-debug/
+bin/
 .cache/
+libs/raylib
 
 compile_commands.json
