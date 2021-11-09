@@ -1,10 +1,9 @@
 #include "Renderer.h"
-#include "Common.h"
 #include "raylib.h"
 
 Renderer::Renderer() {
     InitWindow(WIDTH, HEIGHT, TITLE);
-    SetTargetFPS(TARGET_FPS);
+    SetWindowState(FLAG_VSYNC_HINT);
     SetTraceLogLevel(LOG_ALL);
 }
 

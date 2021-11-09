@@ -32,7 +32,7 @@ Game::~Game() {
 void Game::update(float delta) {
     updateFPSDisplay();
 
-    renderer->moveCamera(Vector2{-50.0f * delta, 0.0});
+    renderer->moveCamera(Vector2{100.0f * delta, 0.0});
 }
 
 void Game::render() {
