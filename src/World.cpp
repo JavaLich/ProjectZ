@@ -7,7 +7,7 @@ World::World() {
 
     for (int y = 0; y < WORLD_SIZE; y++) {
         for (int x = 0; x < WORLD_SIZE; x++) {
-            tiles[y][x] = x % 10;
+            level[y][x] = {x % 10};
         }
     }
 }
@@ -27,7 +27,7 @@ void World::render(Camera2D& cam) {
                 worldPos.y - cam.target.y + cam.offset.y > HEIGHT)
                 continue;
 
-            int32_t id = tiles[y][x].getID();
+            int32_t id = level[y][x].id;
 
             uint32_t sheetX{id % set_width};
             uint32_t sheetY{id / set_width};
