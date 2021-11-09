@@ -4,8 +4,11 @@
 
 #include <raylib.h>
 
-#define WORLD_SIZE 32
-#define TILE_SIZE 32
+#include "Common.h"
+
+#define WORLD_SIZE 256
+#define TILE_PIXEL_SIZE 8
+#define TILE_SIZE (TILE_PIXEL_SIZE * SCALE)
 
 class Tile {
    public:
@@ -27,7 +30,7 @@ class World {
     inline Tile getTile(uint32_t x, uint32_t y) { return tiles[x][y]; }
 
     void update(float delta);
-    void render();
+    void render(Camera2D& cam);
 
    private:
     Tile tiles[WORLD_SIZE][WORLD_SIZE]{};

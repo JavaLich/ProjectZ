@@ -32,13 +32,30 @@ Game::~Game() {
 void Game::update(float delta) {
     updateFPSDisplay();
 
-    renderer->moveCamera(Vector2{100.0f * delta, 0.0});
+    if (IsKeyDown(KEY_D)) {
+        renderer->move_camera(Vector2{100.0f * delta, 0.0});
+    }
+    if (IsKeyDown(KEY_A)) {
+        renderer->move_camera(Vector2{-100.0f * delta, 0.0});
+    }
+    if (IsKeyDown(KEY_S)) {
+        renderer->move_camera(Vector2{0.0, 100.0f * delta});
+    }
+    if (IsKeyDown(KEY_W)) {
+        renderer->move_camera(Vector2{0.0, -100.0f * delta});
+    }
 }
 
 void Game::render() {
     renderer->start();
 
-    world->render();
+    // GUI stuff goes here
+
+    renderer->begin_camera_mode();
+
+    world->render(renderer->get_camera());
+
+    renderer->end_camera_mode();
 
     renderer->end();
 }
