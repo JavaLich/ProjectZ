@@ -2,8 +2,6 @@
 
 #include <raylib.h>
 
-const std::string Game::TITLE = "Project Z";
-
 void updateFPSDisplay() {
 #ifndef NDEBUG
     static double timer = 0.0f;
@@ -22,28 +20,27 @@ void updateFPSDisplay() {
 }
 
 Game::Game() {
-    InitWindow(WIDTH, HEIGHT, TITLE.c_str());
-    SetTargetFPS(TARGET_FPS);
-    SetTraceLogLevel(LOG_ALL);
-
+    renderer = new Renderer();
     world = new World();
 }
 
 Game::~Game() {
     delete world;
-
-    CloseWindow();
+    delete renderer;
 }
 
-void Game::update(double delta) { updateFPSDisplay(); }
+void Game::update(float delta) {
+    updateFPSDisplay();
+
+    renderer->moveCamera(Vector2{-50.0f * delta, 0.0});
+}
 
 void Game::render() {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
+    renderer->start();
 
     world->render();
 
-    EndDrawing();
+    renderer->end();
 }
 
 void Game::run() {

@@ -1,4 +1,5 @@
 #include "World.h"
+#include "external/jar_mod.h"
 #include "raylib.h"
 
 World::World() {
@@ -15,7 +16,7 @@ World::World() {
 
 World::~World() { UnloadTexture(tileset); }
 
-void World::update(double delta) {}
+void World::update(float delta) {}
 
 void World::render() {
     for (int y = 0; y < WORLD_SIZE; y++) {

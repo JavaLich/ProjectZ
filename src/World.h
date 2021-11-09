@@ -26,7 +26,7 @@ class World {
 
     inline Tile getTile(uint32_t x, uint32_t y) { return tiles[x][y]; }
 
-    void update(double delta);
+    void update(float delta);
     void render();
 
    private:
