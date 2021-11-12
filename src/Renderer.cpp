@@ -1,11 +1,12 @@
 #include "Renderer.h"
+#include "raylib.h"
 
-Renderer::Renderer() {
+Camera2D Renderer::cam{Vector2{WIDTH / 2.0}, Vector2{HEIGHT / 2.0}, 0.0, 1.0};
+
+void Renderer::init() {
     InitWindow(WIDTH, HEIGHT, TITLE);
-#ifdef VSYNC
     SetWindowState(FLAG_VSYNC_HINT);
-#endif
     SetTraceLogLevel(LOG_ALL);
 }
 
-Renderer::~Renderer() { CloseWindow(); }
+void Renderer::cleanup() { CloseWindow(); }

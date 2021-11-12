@@ -1,37 +1,48 @@
 #pragma once
 
 #include <cstdint>
-#include <tuple>
-#include <unordered_map>
+#include <string>
+#include <vector>
 
 #include <raylib.h>
 
 #include "Common.h"
 
-#define WORLD_SIZE 128
+#define CHUNK_SIZE 8
+#define WORLD_SIZE 32
 #define TILE_PIXEL_SIZE 8
-#define TILE_SIZE (TILE_PIXEL_SIZE * SCALE)
+#define TILE_SCALE 1
+#define TILE_SIZE (TILE_PIXEL_SIZE * SCALE * TILE_SCALE)
 
 // TODO: Make world chunked. Only load nearby chunks into memory.
 
-struct Tile {
-    int32_t id;
+enum TileProperties { FOREGROUND, BACKGROUND, SOLID };
+
+class Tile {
+   public:
+    Tile(uint32_t id, TileProperties properties)
+        : id(id), properties(properties) {}
+    Tile() : id(0), properties(FOREGROUND) {}
+
+    uint32_t id;
+    TileProperties properties;
 };
 
 class World {
    public:
     World();
+    World(std::string tileset_file);
     ~World();
 
     inline Tile getTile(uint32_t x, uint32_t y) { return level[x][y]; }
 
     void update(float delta);
-    void render(Camera2D& cam);
+    void render();
+
+    void load_level(std::string filename);
 
    private:
     Tile level[WORLD_SIZE][WORLD_SIZE]{};
-    Tile background[WORLD_SIZE][WORLD_SIZE]{};
-    Tile foreground[WORLD_SIZE][WORLD_SIZE]{};
 
     Texture tileset;
     uint32_t set_width;

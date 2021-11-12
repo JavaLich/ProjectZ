@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 #include <string>
 
 #include "Common.h"
@@ -12,12 +13,17 @@ class Game {
     Game();
     ~Game();
 
-    void run();
+    static void init();
+    static void run();
+    static void cleanup();
+
+    inline static std::shared_ptr<Game> get() { return instance; }
 
    private:
     void update(float delta);
     void render();
 
-    World* world;
-    Renderer* renderer;
+    static std::shared_ptr<Game> instance;
+
+    std::shared_ptr<World> world;
 };

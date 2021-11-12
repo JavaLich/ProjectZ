@@ -8,5 +8,3 @@
 
 #define TARGET_FPS 60
 #define TITLE "Project Z"
-
-#define VSYNC
