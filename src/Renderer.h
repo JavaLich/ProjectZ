@@ -1,7 +1,11 @@
+#pragma once
+
+#include <cstdint>
+
 #include <raylib.h>
 
 #include "Common.h"
-#include "raylib.h"
+#include "Entity.h"
 
 class Renderer {
    public:
@@ -23,6 +27,10 @@ class Renderer {
         cam.target.x += offset.x;
         cam.target.y += offset.y;
     }
+    static inline void set_camera_pos(Vector2 pos) { cam.target = pos; }
+
+    static void render_entity(Rectangle bbox, int32_t id);
+    static void render_tile(Rectangle bbox, int32_t id);
 
     static inline bool is_in_screen(const Rectangle& rect) {
         return rect.x - cam.target.x + cam.offset.x < -rect.width ||
@@ -35,4 +43,7 @@ class Renderer {
 
    private:
     static Camera2D cam;
+
+    static Texture2D entity_sheet;
+    static Texture2D tile_sheet;
 };

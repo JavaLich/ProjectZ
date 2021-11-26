@@ -7,12 +7,13 @@
 #include <raylib.h>
 
 #include "Common.h"
+#include "Entity.h"
+#include "Player.h"
 
 #define CHUNK_SIZE 8
-#define WORLD_SIZE 32
+#define WORLD_SIZE 16
 #define TILE_PIXEL_SIZE 8
-#define TILE_SCALE 1
-#define TILE_SIZE (TILE_PIXEL_SIZE * SCALE * TILE_SCALE)
+#define TILE_SIZE (TILE_PIXEL_SIZE * SCALE)
 
 // TODO: Make world chunked. Only load nearby chunks into memory.
 
@@ -43,6 +44,8 @@ class World {
 
    private:
     Tile level[WORLD_SIZE][WORLD_SIZE]{};
+
+    Player player;
 
     Texture tileset;
     uint32_t set_width;

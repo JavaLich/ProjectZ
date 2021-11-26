@@ -1,7 +1,6 @@
 #include "World.h"
 
 #include "Renderer.h"
-#include "raylib.h"
 
 bool is_in_screen(const Camera2D& cam, const Rectangle& rect) {
     return rect.x - cam.target.x + cam.offset.x < -rect.width ||
@@ -16,10 +15,12 @@ World::World() {
     set_height = tileset.height / TILE_PIXEL_SIZE;
 }
 
-World::World(std::string tileset_file) {
+World::World(std::string tileset_file, std::string level_file) {
     tileset = LoadTexture(tileset_file.c_str());
     set_width = tileset.width / TILE_PIXEL_SIZE;
     set_height = tileset.height / TILE_PIXEL_SIZE;
+
+    load_level(level_file);
 }
 
 World::~World() { UnloadTexture(tileset); }
@@ -37,17 +38,9 @@ void World::render() {
 
             int32_t id = level[y][x].id;
 
-            uint32_t sheetX{id % set_width};
-            uint32_t sheetY{id / set_width};
+            Rectangle bbox{worldPos.x, worldPos.y, TILE_SIZE, TILE_SIZE};
 
-            Color tint{WHITE};
-
-            DrawTexturePro(
-                tileset,
-                Rectangle{(float)sheetX * TILE_SIZE, (float)sheetY * TILE_SIZE,
-                          TILE_PIXEL_SIZE, TILE_PIXEL_SIZE},
-                Rectangle{worldPos.x, worldPos.y, TILE_SIZE, TILE_SIZE},
-                Vector2{}, 0, tint);
+            Renderer::render_tile(bbox, id);
         }
     }
 }

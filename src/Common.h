@@ -1,7 +1,9 @@
-#define SCALE 3
+#pragma once
 
-#define WIDTH_BASE 320
-#define HEIGHT_BASE 180
+#define SCALE 6
+
+#define WIDTH_BASE 160
+#define HEIGHT_BASE 90
 
 #define WIDTH (WIDTH_BASE * SCALE)
 #define HEIGHT (HEIGHT_BASE * SCALE)
